@@ -19,48 +19,38 @@ These packages provide an implementation of the rigid body motion estimation of 
     ROS package wrapper for Hauke Strasdat's Sophus library, see https://github.com/strasdat/Sophus.
     
 
-## Installation
-
-Checkout the branch for your ROS version into a folder in your `ROS_PACKAGE_PATH` and build the packages with `rosmake`.
-
-You can build it in docker image
-```bash
-docker pull optsolution/ros-vnc:fuerte
-```
-
-In container of the image, you need run:
-```bash
-apt-get update
-apt-get install python-rosinstall git
-mkdir fuerte_workspace
-rosws init ~/fuerte_workspace /opt/ros/fuerte
-cd ~/fuerte_workspace
-git clone -b my-fuerte-docker https://github.com/OptSolution/dvo.git
-rosws set ~/fuerte_workspace/dvo
-source ~/fuerte_workspace/setup.bash
-rosmake dvo_core dvo_ros dvo_benchmark
-```
-
 ## Usage
 
-Estimating the camera trajectory from an RGB-D image stream:
+You can use my docker image
+```bash
+docker pull optsolution/dvo
+```
+---
 
- *  Start the OpenNI camera driver: `roslaunch openni_launch openni.launch`
- *  Start the dvo *camera_tracker* node: `rosrun dvo_ros camera_tracker`
- *  Start dynamic_reconfigure GUI
-    *   In `/camera/driver` enable *depth_registration* on
-    *   In `/camera_tracker` enable *reconstruction*, *use_weighting*, *run_dense_tracking*, and *use_dense_tracking_estimate*
+You need mount your data to docker container, you can download TUM data from [here](https://vision.in.tum.de/data/datasets/rgbd-dataset/download)
 
-If everything works, the stdout of the *camera_tracker* node should show `[ WARN] [1355131430.132265592]: RGB image size has changed, resetting tracker!` and the camera pose is published on the `/rgbd/pose` topic. You can restart the camera motion estimation by disabling and enabling the *run_dense_tracking* option.
+Before the next step, you need get the `assoc.txt` file by run:
+```bash
+python2 associate.py rgb.txt depth.txt >> assoc.txt
+```
+Then, you can run
+```bash
+docker run -i -t -p 5900:5900 -v [data_path]:[docker_data_path] optsolution/dvo
+```
+e.g.
+```bash
+docker run -i -t -p 5900:5900 -v /home/cwang/data/TUM/rgbd_dataset_freiburg1_360:/root/dataset optsolution/dvo
+```
+and input `:5900` in vnc viewer to connect the desktop
 
-For visualization:
+---
 
- *  Start RVIZ
- *  Set the *Target Frame* to `/world`
- *  Add an *Interactive Marker* display and set its *Update Topic* to `/dvo_vis/update`
- *  Add a *PointCloud2* display and set its *Topic* to `/dvo_vis/cloud`
+you can run in the desktop:
+```bash
+roslaunch dvo_benchmark benchmark.launch dataset:=[docker_data_path]
+```
 
-The red camera shows the current camera position. The blue camera displays the initial camera position.
+Maybe you cannot see anything now, the key `r` need to be pressed. Now you can see the groudtruth. If you want to estimation the trajectory, the key `p` need to be pressed. Now you can see trajecoties in the window. After all, you will find the result in `/root/fuerte_workspace/dvo/dvo_benchmark/output`
 
 ## Publications
 
