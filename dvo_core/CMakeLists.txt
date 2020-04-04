@@ -36,7 +36,7 @@ include_directories(${VTK_INCLUDE_DIRS})
 rosbuild_check_for_sse()
 
 set(CMAKE_CXX_FLAGS_RELWITHDEBINFO
-   "${SSE_FLAGS} -O3 -march=native"
+   "${SSE_FLAGS} -O3"
 )
 
 rosbuild_add_library(${PROJECT_NAME} 

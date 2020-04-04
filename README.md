@@ -23,21 +23,23 @@ These packages provide an implementation of the rigid body motion estimation of 
 
 Checkout the branch for your ROS version into a folder in your `ROS_PACKAGE_PATH` and build the packages with `rosmake`.
 
- *  ROS Fuerte:
-    
-    ```bash
-    git clone -b fuerte git://github.com/tum-vision/dvo.git
-    rosmake dvo_core dvo_ros dvo_benchmark
-    ```
+You can build it in docker image
+```bash
+docker pull optsolution/ros-vnc:fuerte
+```
 
- *  ROS Electric:
-    
-    You need to install `perception_pcl_unstable` with PCL version 1.5+.
-    
-    ```bash
-    git clone -b electric git://github.com/tum-vision/dvo.git
-    rosmake dvo_core dvo_ros dvo_benchmark
-    ```
+In container of the image, you need run:
+```bash
+apt-get update
+apt-get install python-rosinstall git
+mkdir fuerte_workspace
+rosws init ~/fuerte_workspace /opt/ros/fuerte
+cd ~/fuerte_workspace
+git clone -b my-fuerte-docker https://github.com/OptSolution/dvo.git
+rosws set ~/fuerte_workspace/dvo
+source ~/fuerte_workspace/setup.bash
+rosmake dvo_core dvo_ros dvo_benchmark
+```
 
 ## Usage
 
