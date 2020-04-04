@@ -15,13 +15,13 @@
     <param type="string" name="rgbdpair_file" value="$(arg dataset)/assoc.txt" />
     <param type="string" name="groundtruth_file" value="$(arg dataset)/groundtruth.txt" />
     
-    <param type="bool" name="estimate_trajectory" value="false" />
+    <param type="bool" name="estimate_trajectory" value="true" />
     <param type="string" name="trajectory_file" value="$(arg trajectory_file)" />
     
     <param type="bool" name="show_estimate" value="true" />
     <param type="bool" name="show_groundtruth" value="true" />
     
-    <param type="bool" name="render_video" value="false" />
+    <param type="bool" name="render_video" value="true" />
     <param type="string" name="video_folder" value="$(arg video_folder)" />
     
     <param type="string" name="camera_file" value="$(arg camera_file)" />

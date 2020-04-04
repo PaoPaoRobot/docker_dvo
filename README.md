@@ -49,6 +49,10 @@ you can run in the desktop:
 ```bash
 roslaunch dvo_benchmark benchmark.launch dataset:=[docker_data_path]
 ```
+e.g.
+```bash
+roslaunch dvo_benchmark benchmark.launch dataset:=/root/dataset/
+```
 
 Maybe you cannot see anything now, the key `r` need to be pressed. Now you can see the groudtruth. If you want to estimation the trajectory, the key `p` need to be pressed. Now you can see trajecoties in the window. After all, you will find the result in `/root/fuerte_workspace/dvo/dvo_benchmark/output`
 
