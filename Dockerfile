@@ -1,5 +1,7 @@
 FROM optsolution/ros-vnc:fuerte
 
+MAINTAINER Chen Wang<mr_cwang@foxmail.com>
+
 COPY . /root/fuerte_workspace/dvo/
 
 RUN rosws init ~/fuerte_workspace /opt/ros/fuerte \
