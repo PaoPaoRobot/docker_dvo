@@ -1,4 +1,4 @@
-FROM optsolution/ros-vnc:fuerte
+FROM paopaorobot/ros-vnc:fuerte
 
 MAINTAINER Chen Wang<mr_cwang@foxmail.com>
 
